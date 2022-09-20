@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int main(){
     
@@ -10,8 +9,7 @@ int main(){
     
     printf("Введенный массив: \n");
     for(int i = 0; i < n; ++i){
-        mas[i] = rand() % 1000;
-        printf("%d ", mas[i]);
+        scanf("%d", &mas[i]);
     }
     
     int max = 0, min = 10000000, indxmax, indxmin;
@@ -26,6 +24,8 @@ int main(){
             indxmin = i;
         }
     }
+    
+    printf("\nМаксимум = %d; Минимум = %d\n", max, min);
     
     mas[indxmax] = min;
     mas[indxmin] = max;
