@@ -6,11 +6,16 @@
 
 int char_to_int(char* string) {
 	int result = 0;
+	int sign = 1;
+	if (*string == '-') {
+		sign = -1;
+		string++;
+	}
 	while (*string) {
 		result = result * 10 + (*string - '0');
 		string++;
 	}
-	return result;
+	return result * sign;
 }
 
 bool prime(int number) {
