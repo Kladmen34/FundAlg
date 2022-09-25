@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define LEN 34
+
+int main(){
+	int base; 
+	int max = 0;
+	char numbers[LEN], maxnumber[LEN], str[LEN];
+	printf("Введите систему счисления: ");
+	scanf("%d", &base);
+	printf("Введите числа в этой системе: ");
+	while (strcmp(numbers, "Stop")){
+		scanf("%s", numbers);
+		char *pb = numbers - 1;
+		int result = 0;
+		while (*++pb){
+			if ((isdigit(*pb) && (*pb - '0' >= base) || isalpha(*pb) && *pb - 'A' + 10 >= base) && strcmp(numbers, "Stop")){
+				printf("Некорректный ввод: %c", *pb);
+			}
+			result = result * base + (isdigit(*pb) ? *pb - '0' : *pb - 'A' + 10);
+		}
+		if (result > max && strcmp(numbers, "Stop")){
+			max = result;
+			strcpy(maxnumber, numbers);
+		}
+	}
+	printf("Максимальное по модулю число в %d системе счисления: %s\n", base, maxnumber);
+	printf("Это же число в десятичной системе: %d\n", max);
+
+	for (int i = 9; i <= 36; i += 9){
+		int r;
+		base = i;
+		int tmp = max;
+		int j = 0;
+		
+		while (tmp){
+			r = tmp % base;
+			str[j] = (r > 9) ? (r - 10 + 'A') : (r + '0');
+			tmp /= base;
+			j++;
+		}
+
+		printf("%d система счисления: ", base);
+		for (int k = j - 1; k >= 0; k--){
+			printf("%c", str[k]);
+		}
+		printf("\n");
+	}
+
+	return 0;
+}
