@@ -11,6 +11,9 @@ int main(){
 	char numbers[LEN], maxnumber[LEN];
 	printf("Введите систему счисления: ");
 	scanf("%d", &base);
+	if (base < 2 || base > 36){
+		printf("Некорректный ввод!");
+	}
 	printf("Введите числа в этой системе: ");
 	while (strcmp(numbers, "Stop")){
 		scanf("%s", numbers);
