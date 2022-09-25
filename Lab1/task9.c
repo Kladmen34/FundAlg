@@ -41,15 +41,15 @@ int main(){
 		int j = 0;
 		
 		while (temp){
-			r = tmp % base;
+			r = temp % base;
 			str[j] = (r > 9) ? (r - 10 + 'A') : (r + '0');
 			temp /= base;
 			j++;
 		}
 
 		printf("%d система счисления: ", base);
-		for (int k = j - 1; k >= 0; k--){
-			printf("%c", str[k]);
+		for (int n = j - 1; n >= 0; n--){
+			printf("%c", str[n]);
 		}
 		printf("\n");
 	}
