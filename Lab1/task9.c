@@ -8,7 +8,7 @@
 int main(){
 	int base; 
 	int max = 0;
-	char numbers[LEN], maxnumber[LEN], str[LEN];
+	char numbers[LEN], maxnumber[LEN];
 	printf("Введите систему счисления: ");
 	scanf("%d", &base);
 	printf("Введите числа в этой системе: ");
@@ -29,17 +29,18 @@ int main(){
 	}
 	printf("Максимальное по модулю число в %d системе счисления: %s\n", base, maxnumber);
 	printf("Это же число в десятичной системе: %d\n", max);
-
+	
+	char str[LEN];
 	for (int i = 9; i <= 36; i += 9){
 		int r;
 		base = i;
-		int tmp = max;
+		int temp = max;
 		int j = 0;
 		
-		while (tmp){
+		while (temp){
 			r = tmp % base;
 			str[j] = (r > 9) ? (r - 10 + 'A') : (r + '0');
-			tmp /= base;
+			temp /= base;
 			j++;
 		}
 
