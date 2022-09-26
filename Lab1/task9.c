@@ -13,6 +13,7 @@ int main(){
 	scanf("%d", &base);
 	if (base < 2 || base > 36){
 		printf("Некорректный ввод!");
+		return 1;
 	}
 	printf("Введите числа в этой системе: ");
 	while (strcmp(numbers, "Stop")){
@@ -22,6 +23,7 @@ int main(){
 		while (*++pb){
 			if ((isdigit(*pb) && (*pb - '0' >= base) || isalpha(*pb) && *pb - 'A' + 10 >= base) && strcmp(numbers, "Stop")){
 				printf("Некорректный ввод: %c", *pb);
+				return 2;
 			}
 			result = result * base + (isdigit(*pb) ? *pb - '0' : *pb - 'A' + 10);
 		}
