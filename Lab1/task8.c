@@ -14,7 +14,7 @@ int main(){
         return 1;
     }
     
-    while (fscanf(fi, "%d", mas1 + len) != EOF)
+    while (fscanf(fi, "%d", mas1) != EOF)
         len++;
     
     printf("Меню:\n");
