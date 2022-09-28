@@ -19,6 +19,10 @@ int char_to_int(char* string) {
 }
 
 void flag_q(int a, int b, int c) {
+	if (a == 0) {
+		printf("Неверный ввод!\n");
+		return 1;
+	}
 	int D;
 	double x1, x2;
 	D = pow(b, 2) - (4 * a * c);
