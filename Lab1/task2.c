@@ -18,7 +18,7 @@ int char_to_int(char* string) {
 	return result * sign;
 }
 
-int flag_q(int a, int b, int c) {
+int square_equation(int a, int b, int c) {
 	if (a == 0) {
 		printf("Неверный ввод!\n");
 		return 1;
@@ -59,12 +59,12 @@ int main(int argc, char* argv[]) {
 			a = char_to_int(argv[2]);
 			b = char_to_int(argv[3]);
 			c = char_to_int(argv[4]);
-			flag_q(a, b, c);
-			flag_q(a, c, b);
-			flag_q(b, a, c);
-			flag_q(b, c, a);
-			flag_q(c, a, b);
-			flag_q(c, b, a);
+			square_equation(a, b, c);
+			square_equation(a, c, b);
+			square_equation(b, a, c);
+			square_equation(b, c, a);
+			square_equation(c, a, b);
+			square_equation(c, b, a);
 			break;
 			
 		case 'm':
