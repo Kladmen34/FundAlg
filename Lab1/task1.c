@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include <locale.h>
 
 int char_to_int(char* string) {
@@ -19,7 +20,7 @@ int char_to_int(char* string) {
 }
 
 bool prime(int number) {
-	if (number > 1){
+	if (number > 1) {
 		for (int i = 2; i < number; i++) {
 			if (number % i == 0) {
 				return false;
@@ -33,61 +34,8 @@ bool prime(int number) {
 }
 
 
-void flag_h(int number) {
-	int flag = 0;
-	for (int i = 1; i <= 100; ++i) {
-		if (number % i == 0) {
-			printf("%d ", i);
-			flag++;
-		}
-		
-	}
-	if (flag == 0) {
-		printf("Таких чисел нет\n");
-	}
-}
 
-void flag_p(int number) {
-	if (prime(number)) {
-		printf("Число простое\n");
-	}
-	else {
-		printf("Число составное\n");
-	}
-}
-
-void flag_s(int number) {
-	int result;
-	while (number != 0) {
-		result = number % 10;
-		printf("%d ", result);
-		number /= 10;
-	}
-
-}
-
-void flag_e(int number) {
-	if (number <= 10) {
-		int result = 1;
-		for (int i = 1; i <= number; ++i) {
-			result *= number;
-			printf("%d ", result);
-		}
-	}
-	else {
-		printf("Число больше 10!\n");
-	}
-}
-
-void flag_a(int number) {
-	int sum = 0;
-	for (int i = 1; i <= number; ++i) {
-		sum += i;
-	}
-	printf("%d", sum);
-}
-
-int flag_f(int number) {
+int factorial(int number) {
 	if (number == 0 || number == 1) {
 		return 1;
 	}
@@ -105,33 +53,66 @@ int main(int argc, char* argv[]) {
 		printf("Неверная длина флага\n");
 	}
 
-	int fact, num = char_to_int(argv[1]);
+	int num = char_to_int(argv[1]);
 	if (num > 0) {
 		if (argv[2][0] == '-' || argv[2][0] == '/') {
 			switch (argv[2][1]) {
 
 			case 'h':
-				flag_h(num);
+				int flag = 0;
+				for (int i = 1; i <= 100; ++i) {
+					if (num % i == 0) {
+						printf("%d ", i);
+						flag++;
+					}
+
+				}
+				if (flag == 0) {
+					printf("Таких чисел нет\n");
+				}
 				break;
 
 			case 'p':
-				flag_p(num);
+				if (prime(num)) {
+					printf("Число простое\n");
+				}
+				else {
+					printf("Число составное\n");
+				}
 				break;
 
 			case 's':
-				flag_s(num);
+				int result;
+				while (num != 0) {
+					result = num % 10;
+					printf("%d ", result);
+					num /= 10;
+				}
 				break;
 
 			case 'e':
-				flag_e(num);
+				if (num <= 10) {
+					int result = 1;
+					for (int i = 1; i <= num; ++i) {
+						result *= num;
+						printf("%d ", result);
+					}
+				}
+				else {
+					printf("Число больше 10!\n");
+				}
 				break;
 
 			case 'a':
-				flag_a(num);
+				int sum = 0;
+				for (int i = 1; i <= num; ++i) {
+					sum += i;
+				}
+				printf("%d", sum);
 				break;
 
 			case 'f':
-				fact = flag_f(num);
+				int fact = factorial(num);
 				printf("%d", fact);
 				break;
 
