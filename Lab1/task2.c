@@ -18,60 +18,29 @@ int char_to_int(char* string) {
 	return result * sign;
 }
 
-void flag_q(int a, int b, int c) {
+int flag_q(int a, int b, int c) {
 	if (a == 0) {
 		printf("Неверный ввод!\n");
 		return 1;
 	}
-	int D;
+	float D;
 	float x1, x2;
 	D = pow(b, 2) - (4 * a * c);
 	printf("При a = %d, b = %d, c = %d:\n", a, b, c);
-	if (D > 0) {
+	if (D < 0) {
+		printf("Вещественных решений нет\n");
+		return -1;
+	}
+	else {
 		x1 = (-b + sqrt(D)) / ((2 * a));
 		x2 = (-b - sqrt(D)) / ((2 * a));
 		printf("Корни - %f %f\n", x1, x2);
+		return 0;
 	}
-	else if (D == 0) {
-		x1 = (-b) / (2 * a);
-		printf("Корень - %f\n", x1);
-	}
-	else {
-		printf("Корней нет\n");
-	}
+	
 }
 
-void flag_m(int n1, int n2) {
-	if (n1 > 0 && n2 > 0) {
-		if (n1 % n2 == 0) {
-			printf("Первое число кратно второму\n");
-		}
-		else {
-			printf("Числа не кратны\n");
-		}
-	}
-	else {
-		printf("Некорректный ввод!\n");
-	}
-}
 
-void flag_t(int n1, int n2, int n3) {
-	if (n1 > 0 && n2 > 0 && n3 > 0) {
-		n1 = pow(n1, 2);
-		n2 = pow(n2, 2);
-		n3 = pow(n3, 2);
-
-		if (n1 == n2 + n3 || n2 == n1 + n3 || n3 == n1 + n2) {
-			printf("Это стороны прямоугольного треугольника\n");
-		}
-		else {
-			printf("Введенные значения не могут быть сторонами прямоугольного треугольника\n");
-		}
-	}
-	else {
-		printf("Некорректный ввод!\n");
-	}
-}
 
 int main(int argc, char* argv[]) {
 	setlocale(LC_ALL, "Russian");
@@ -97,7 +66,7 @@ int main(int argc, char* argv[]) {
 			flag_q(c, a, b);
 			flag_q(c, b, a);
 			break;
-
+			
 		case 'm':
 			if (argc != 4) {
 				printf("Неверное число параметров!\n");
@@ -106,19 +75,43 @@ int main(int argc, char* argv[]) {
 			num1 = char_to_int(argv[2]);
 			num2 = char_to_int(argv[3]);
 
-			flag_m(num1, num2);
+			if (num1 > 0 && num2 > 0) {
+				if (num1 % num2 == 0) {
+					printf("Первое число кратно второму\n");
+				}
+				else {
+					printf("Числа не кратны\n");
+				}
+			}
+			else {
+				printf("Некорректный ввод!\n");
+			}
+			
 			break;
 		case 't':
+
 			if (argc != 5) {
 				printf("Неверное число параметров!\n");
 				break;
 			}
-
 			num1 = char_to_int(argv[2]);
 			num2 = char_to_int(argv[3]);
 			num3 = char_to_int(argv[4]);
 
-			flag_t(num1, num2, num3);
+			num1 = pow(num1, 2);
+			num2 = pow(num2, 2);
+			num3 = pow(num3, 2);
+			if (num1 > 0 && num2 > 0 && num3 > 0) {
+				if (num1 == num2 + num3 || num2 == num1 + num3 || num3 == num1 + num2) {
+					printf("Это стороны прямоугольного треугольника\n");
+				}
+				else {
+					printf("Введенные значения не могут быть сторонами прямоугольного треугольника\n");
+				}
+			}
+			else {
+				printf("Некорректный ввод!\n");
+			}
 			break;
 		}	
 	}
