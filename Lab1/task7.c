@@ -1,19 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
 
 int main(){
-    
+    setlocale(LC_ALL, "Russian");
     int n;
     printf("Введите размерность массива: \n");
     scanf("%d", &n);
     int mas[n];
-    
+
     printf("Введенный массив: \n");
     for(int i = 0; i < n; ++i){
-        scanf("%d", &mas[i]);
+        mas[i] = rand() % 100;
+        printf("%d ", mas[i]);
     }
-    
+
     int max = 0, min = 10000000, indxmax, indxmin;
-    
+
     for(int i = 0; i < n; ++i){
         if (mas[i] > max){
             max = mas[i];
@@ -24,16 +27,18 @@ int main(){
             indxmin = i;
         }
     }
-    
+
     printf("\nМаксимум = %d; Минимум = %d\n", max, min);
-    
-    mas[indxmax] = min;
-    mas[indxmin] = max;
-    
+
+    int tmp;
+    tmp = mas[indxmin];
+    mas[indxmin] = mas[indxmax];
+    mas[indxmax] = tmp;
+
     printf("\nНовый массив: \n");
     for(int i = 0; i < n; ++i){
         printf("%d ", mas[i]);
     }
-    
+
     return 0;
 }
