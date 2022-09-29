@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #define LEN 200
 int main(int argc, char* argv[]){
+    setlocale(LC_ALL, "Russian");
 	FILE *in, *out, *files;
 	char c, str[LEN], act;
 	int flag = 1;
@@ -18,7 +20,7 @@ int main(int argc, char* argv[]){
 		}
 	}
 	switch(act){
-		
+
 	case 'f':
 		if (argc != 3){
 			printf("Неверное число аргументов!");
@@ -41,18 +43,19 @@ int main(int argc, char* argv[]){
 				fputc(c, out);
 			fclose(in);
 		}
-		fclose(out);	
+		fclose(out);
 		fclose(files);
-		
+
 		break;
-			
+
 	case 'c':
-		
+
 		out = fopen("out.txt", "w");
+		printf("Введите имена файлов: \n");
                 scanf("%s", str);
                 if (str[0] == 's')
                     flag = 0;
-                while(flag){ 
+                while(flag){
                     in = fopen(str, "r");
                     if (!in){
                         printf("Невозможно открыть файл!");
@@ -61,15 +64,15 @@ int main(int argc, char* argv[]){
                     while ((c = fgetc(in)) != EOF)
 				fputc(c, out);
                         fclose(in);
-                    
+
                     scanf("%s", str);
                     if (str[0] == 's')
                         flag = 0;
                 }
                 fclose(out);
                 break;
-			
-			
+
+
 	case 'a':
 		if (argc < 3){
 			printf("Неверное число аргументов!");
@@ -88,9 +91,9 @@ int main(int argc, char* argv[]){
 		}
 		fclose(out);
 		break;
-	}	
+	}
 	return 0;
 }
-				
-	
-		
+
+
+
