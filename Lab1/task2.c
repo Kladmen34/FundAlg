@@ -24,17 +24,17 @@ void flag_q(int a, int b, int c) {
 		return 1;
 	}
 	int D;
-	double x1, x2;
+	float x1, x2;
 	D = pow(b, 2) - (4 * a * c);
 	printf("При a = %d, b = %d, c = %d:\n", a, b, c);
 	if (D > 0) {
 		x1 = (-b + sqrt(D)) / ((2 * a));
 		x2 = (-b - sqrt(D)) / ((2 * a));
-		printf("Корни - %lf %lf\n", x1, x2);
+		printf("Корни - %f %f\n", x1, x2);
 	}
 	else if (D == 0) {
 		x1 = (-b) / (2 * a);
-		printf("Корень - %lf\n", x1);
+		printf("Корень - %f\n", x1);
 	}
 	else {
 		printf("Корней нет\n");
