@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ctype.h>
+#include <math.h>
 #include <locale.h>
 
 int char_to_int(char* string) {
@@ -92,11 +92,15 @@ int main(int argc, char* argv[]) {
 
 			case 'e':
 				if (num <= 10) {
-					int result = 1;
-					for (int i = 1; i <= num; ++i) {
-						result *= num;
-						printf("%d ", result);
+					int result;
+					for (int i = 1; i <= 10; ++i) {
+						for (int j = 1; j <= num; j++){
+							result = pow(i, j);
+							printf("%d ", result);
+						}
+						printf("\n");
 					}
+					printf("\n");	
 				}
 				else {
 					printf("Число больше 10!\n");
