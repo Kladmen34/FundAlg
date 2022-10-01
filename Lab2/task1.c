@@ -28,7 +28,7 @@ int main(){
         if (i < dim2)
             C[i] = A[i] + B[i];
         else
-            C[i] = A[i] + B[i - 1];
+            C[i] = A[i] + B[dim2 - 1];
     }
 
     printf("\nНовый массив: \n");
