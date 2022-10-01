@@ -30,8 +30,8 @@ int main(){
 
     printf("\nМаксимум = %d; Минимум = %d\n", max, min);
 
-    mas[indxmin] = mas[indxmax];
-    mas[indxmax] = mas[indxmin];
+    mas[indxmin] = max;
+    mas[indxmax] = min;
 
     printf("\nНовый массив: \n");
     for(int i = 0; i < n; ++i){
