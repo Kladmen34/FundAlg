@@ -60,11 +60,10 @@ int main(int argc, char* argv[]) {
 
 			case 'h':
 				int flag = 0;
-				for (int i = 1; i <= 100; ++i) {
-					if (num % i == 0) {
-						printf("%d ", i);
-						flag++;
-					}
+				for (int i = num; i <= 100; i += num) {
+					printf("%d ", i);
+					flag++;
+				}
 
 				}
 				if (flag == 0) {
@@ -92,10 +91,11 @@ int main(int argc, char* argv[]) {
 
 			case 'e':
 				if (num <= 10) {
-					int result;
+					long long int result = 1;
 					for (int i = 1; i <= 10; ++i) {
+						result = i;
 						for (int j = 1; j <= num; j++){
-							result = pow(i, j);
+							result *= i;
 							printf("%d ", result);
 						}
 						printf("\n");
@@ -108,10 +108,7 @@ int main(int argc, char* argv[]) {
 				break;
 
 			case 'a':
-				int sum = 0;
-				for (int i = 1; i <= num; ++i) {
-					sum += i;
-				}
+				int sum = (num * (num + 1)) / 2;
 				printf("%d", sum);
 				break;
 
