@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
 						result = i;
 						for (int j = 1; j <= num; j++){
 							result *= i;
-							printf("%d ", result);
+							printf("%ld ", result);
 						}
 						printf("\n");
 					}
