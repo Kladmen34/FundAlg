@@ -18,8 +18,9 @@ int char_to_int(char* string) {
 	return result * sign;
 }
 
-int square_equation(int a, int b, int c) {
-	if (a == 0) {
+double square_equation(double a, double b, double c) {
+	double eps = 0.0000001;
+	if (fabs(a - 0) < eps) {
 		printf("Неверный ввод!\n");
 		return 1;
 	}
@@ -27,7 +28,7 @@ int square_equation(int a, int b, int c) {
 	float x1, x2;
 	D = pow(b, 2) - (4 * a * c);
 	printf("При a = %d, b = %d, c = %d:\n", a, b, c);
-	if (D < 0) {
+	if (D < eps) {
 		printf("Вещественных решений нет\n");
 		return -1;
 	}
@@ -97,11 +98,11 @@ int main(int argc, char* argv[]) {
 			num1 = char_to_int(argv[2]);
 			num2 = char_to_int(argv[3]);
 			num3 = char_to_int(argv[4]);
-
+				
+			if (num1 > 0 && num2 > 0 && num3 > 0) {
 			num1 = pow(num1, 2);
 			num2 = pow(num2, 2);
 			num3 = pow(num3, 2);
-			if (num1 > 0 && num2 > 0 && num3 > 0) {
 				if (num1 == num2 + num3 || num2 == num1 + num3 || num3 == num1 + num2) {
 					printf("Это стороны прямоугольного треугольника\n");
 				}
