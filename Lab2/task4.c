@@ -3,12 +3,12 @@
 #include <math.h>
 #include <stdarg.h>
 
-double geom_mean(int n, ...){
+double geom_mean(double n, ...){
     double result = 1.0;
     va_list factor;
     va_start(factor, n);
     for (int i = 0; i < n; i++){
-        result *= va_arg(factor, int);
+        result *= va_arg(factor, double);
     }
     va_end(factor);
     return pow(result, 1.0 / n);
