@@ -15,12 +15,12 @@ double Dhtm(double a, double b, double epsylone){
             else
                 b = c;
         }
+        return c;
     }
     else{
         printf("Уравнение не имеет корней на заданном отрезке ");
         return -1;
     }
-    return c;
 }
 
 int main(){
