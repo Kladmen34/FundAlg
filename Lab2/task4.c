@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <locale.h>
 #include <stdarg.h>
 
-double geom_mean(double n, ...){
-    double result = 1.0;
+double geom_mean(int n, ...){
+    double result = 1.0, eps = 0.00001;
     va_list factor;
     va_start(factor, n);
     for (int i = 0; i < n; i++){
         result *= va_arg(factor, double);
     }
     va_end(factor);
+    if ((n % 2 == 0) && (result < eps)){
+        return -1;
+    }
     return pow(result, 1.0 / n);
 }
 
@@ -27,7 +31,9 @@ double power(double num, int base){
 }
 
 int main(){
-    printf("%lf\n", geom_mean(2, 5, 7, 1));
+    setlocale(LC_ALL, "Russian");
+    printf("%lf\n", geom_mean(4, 5.0, 7.0, 1.0, 6.0));
+    printf("%lf\n", geom_mean(2, 2.0, -1.0));
     printf("%lf\n", power(2, 0));
     printf("%lf\n", power(5, 1));
     printf("%lf\n", power(9, 3));
