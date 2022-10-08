@@ -19,7 +19,6 @@ double Dhtm(double a, double b, double epsylone){
         return c;
     }
     else{
-        printf("Уравнение не имеет корней на заданном отрезке ");
         return -1;
     }
 }
