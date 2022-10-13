@@ -13,7 +13,7 @@ int main(){
 
     setlocale(LC_ALL, "Russian");
     int *mas, *new_mas, dim, action, range;
-    int max = INT_MIN, min = INT_MAX;
+    int *max = INT_MIN, *min = INT_MAX;
     int new_dim = 0, flag = 0;
     printf("Введите размерность массива: ");
     scanf("%d", &dim);
@@ -36,21 +36,18 @@ int main(){
 
     switch(action){
     case 1:
-
+        max = &mas[0], min = &mas[0];
         for (int i = 1; i < dim; i++){
-            if (mas[i] > max){
-                max = mas[i];
+            if (mas[i] > *max){
+                max = &mas[i];
             }
-            if (mas[i] < min){
-                min = mas[i];
+            if (mas[i] < *min){
+                min = &mas[i];
             }
         }
 
-        printf("\nМаксимум = %d; Минимум = %d\n", max, min);
-        int *tmp1, *tmp2;
-        tmp1 = &min;
-        tmp2 = &max;
-        swap(tmp1, tmp2);
+        printf("\nМаксимум = %d; Минимум = %d\n", *max, *min);
+        swap(min, max);
         printf("Измененный масив: ");
         for (int i = 0; i < dim; i++){
             printf("%d ", mas[i]);
