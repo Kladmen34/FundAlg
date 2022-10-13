@@ -18,9 +18,6 @@ double Dhtm(double a, double b, double epsylone){
         }
         return c;
     }
-    else{
-        return -1;
-    }
 }
 
 int main(){
