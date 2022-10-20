@@ -166,6 +166,10 @@ double f_pi(double x)
 {
     return cos(x) + 1;
 }
+double df_pi(double x)
+{
+    return -sin(x);
+}
 double f_ln(double x)
 {
     return exp(x) - 2;
@@ -230,16 +234,16 @@ double count_e(double eps)
 
 double count_pi(double eps)
 {
-    double l = 3, r = 3.5, c;
-    while( r - l > eps )
+  double a = 3, b = 4;
+  double x = (a + b) / 2;
+  double x1 = x + 1;
+  while (fabs (x - x1) > eps)
     {
-       c = ( l + r ) / 2;
-       if(f_pi(c) * f_pi(r) < 0)
-           l = c;
-       else
-           r = c;
-    }
-    return c;
+      x1 = x;
+      x = x - f_pi(x) / df_pi(x);
+    }\
+  return x;
+
 }
 double count_ln(double eps)
 {
