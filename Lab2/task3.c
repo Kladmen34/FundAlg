@@ -241,7 +241,7 @@ double count_pi(double eps)
     {
       x1 = x;
       x = x - f_pi(x) / df_pi(x);
-    }\
+    }
   return x;
 
 }
