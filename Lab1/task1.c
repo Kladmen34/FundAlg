@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 					flag++;
 				}
 
-				}
+
 				if (flag == 0) {
 					printf("Таких чисел нет\n");
 				}
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
 					printf("Число простое\n");
 				}
 				else {
-					printf("Число составное\n");
+					printf("Число не простое\n");
 				}
 				break;
 
@@ -91,16 +91,16 @@ int main(int argc, char* argv[]) {
 
 			case 'e':
 				if (num <= 10) {
-					long long int result = 1;
-					for (int i = 1; i <= 10; ++i) {
-						result = i;
-						for (int j = 1; j <= num; j++){
+					long long int result;
+					for (int i = 1; i <= 10; i++) {
+						result = 1;
+						for (int j = 1; j <= num; j++) {
 							result *= i;
-							printf("%ld ", result);
+							printf("%d ", result);
 						}
 						printf("\n");
 					}
-					printf("\n");	
+					printf("\n");
 				}
 				else {
 					printf("Число больше 10!\n");
@@ -123,10 +123,8 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	}
-	else {
+	else
 		printf("Введено неверное число\n");
-	}
 	return 0;
 }
-
 
