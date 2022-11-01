@@ -84,8 +84,8 @@ int main()
         printf("Incorrect input!");
         return INCORRECT_INPUT;
     }
-    if (l > k){
-       printf("The condition l <= k is not met");
+    if (l > k || k <= 0 || l <= 0){
+       printf("Incorrect input!");
        return INCORRECT_INPUT;
     }
     search_one(k, l, res, &len);
