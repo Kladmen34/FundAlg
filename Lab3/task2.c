@@ -65,8 +65,7 @@ void print_res(int *mas, int len){
     printf("\n");
 }
 
-int main()
-{
+int main(){
     int k, l, num, *len, code;
     int *res = (int*)malloc(SIZE * sizeof(int));
     if (res == NULL)
