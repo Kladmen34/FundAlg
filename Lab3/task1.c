@@ -1,52 +1,70 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <math.h>
 
-#define SIZE 32
+int add(int a, int b){
+    int res = 0, carry = 0;
+    res = a ^ b;
+    carry = (a & b) << 1;
+    while (carry){
+        int tmp = res;
+        res = res ^ carry;
+        carry = (tmp & carry) << 1;
+    }
+    return res;
+}
 
+int subtraction(int a, int b) {
+    return add(a, add(~b, 1));
+}
 
-char* to_base(int n, int r)
-{
-        int base = 1;
-        base = base << r;
-        unsigned int rem = 0;
-        char *res = (char *)malloc(SIZE * sizeof(char));
-        if (res == NULL)
-        	return NULL;
-        int i = SIZE - 1;
-        while (n != 0)
-        {
-            rem = n & (base - 1);
-            if (rem > 9)
-            {
-                for (int j = 0; j < 9; j++)
-                    rem = ~-rem;
-                res[i] = 64 | rem;
-            }
-            else
-                res[i] = 48 | rem;
-            i--;
-            n = n >> r;
+int count(int n, int base){
+    int k = 0;
+    while(n > 0){
+        k = add(k, 1);
+        n >>= base;
+    }
+    return k;
+}
+
+char* to_base(int n, int r){
+    int base = 1;
+    base = base << r;
+    unsigned int rem = 0;
+    int flag = 0;
+    if (n < 0){
+        flag = 1;
+        n = -n;
+    }
+
+    int size = count(n, r);
+    size = add(size, 1);
+    char* res = (char*)malloc(size * sizeof(char));
+    if (res == NULL)
+        return NULL;
+
+    int i = size - 1;
+    res[i] = '\0';
+    i--;
+    base = subtraction(base, 1);
+    while (n != 0){
+        rem = n & base;
+        if (rem > 9){
+            for (int j = 0; j < 9; j++)
+                rem = subtraction(rem, 1);
+            res[i] = 64 | rem;
         }
-        return res;
+        else
+            res[i] = 48 | rem;
+        i--;
+        n = n >> r;
+    }
+
+    return res;
 }
 
-
-void print_res(char *res){
-	for (int i = 0; i < SIZE; i++)
-		printf("%c", res[i]);
-}
-
-void free_res(char *res){
-	free(res);
-} 
-
-
-int main()
-{
+int main(){
     int number, r, power, code;
+    char* buf;
     printf("Number in decimal system: ");
     code = scanf("%d", &number);
     if (code != 1){
@@ -57,23 +75,24 @@ int main()
     code = scanf("%d", &r);
     if (code != 1){
     	printf("Incorrect input");
-    	return -1;
+    	return -2;
     }
     if (r < 1 || r > 5){
     	printf("Out of range: [1,5]");
-    	return -1;
+    	return -3;
     }
     power = 1 << r;
     printf("Number in %d system: ", power);
+    buf = to_base(abs(number), r);
     if (number < 0){
-    	number *= -1;
-    	printf("-");
-    	print_res(to_base(number, r));
-    	free_res(to_base(number, r));
+        printf("-");
+        printf("%s", buf);
+        free(buf);
     }
-    else
-    	print_res(to_base(number, r));
-    	free_res(to_base(number, r));
+    else{
+        printf("%s", buf);
+        free(buf);
+    }
     putchar('\n');
     return 0;
 }
