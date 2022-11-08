@@ -30,11 +30,8 @@ char* to_base(int n, int r){
     int base = 1;
     base = base << r;
     unsigned int rem = 0;
-    int flag = 0;
-    if (n < 0){
-        flag = 1;
+    if (n < 0)
         n = -n;
-    }
 
     int size = count(n, r);
     size = add(size, 1);
