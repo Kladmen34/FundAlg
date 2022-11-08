@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 int add(int a, int b){
     int res = 0, carry = 0;
     res = a ^ b;
@@ -30,18 +31,15 @@ char* to_base(int n, int r){
     int base = 1;
     base = base << r;
     unsigned int rem = 0;
-    if (n < 0)
-        n = -n;
-
     int size = count(n, r);
     size = add(size, 1);
     char* res = (char*)malloc(size * sizeof(char));
     if (res == NULL)
         return NULL;
 
-    int i = size - 1;
+    int i = subtraction(size, 1);
     res[i] = '\0';
-    i--;
+    i = subtraction(i, 1);
     base = subtraction(base, 1);
     while (n != 0){
         rem = n & base;
@@ -52,7 +50,7 @@ char* to_base(int n, int r){
         }
         else
             res[i] = 48 | rem;
-        i--;
+        i = subtraction(i, 1);
         n = n >> r;
     }
 
@@ -82,6 +80,7 @@ int main(){
     printf("Number in %d system: ", power);
     buf = to_base(abs(number), r);
     if (number < 0){
+        number = -number;
         printf("-");
         printf("%s", buf);
         free(buf);
