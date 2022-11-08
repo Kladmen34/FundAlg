@@ -45,7 +45,7 @@ void search_one(int k, int l, int** mas, int *len){
     int lim = 2 << (k - 1);
     int size = comb(l, k);
     *mas = (int*)malloc(size * sizeof(int));
-    if (!*mas)
+    if (*mas == NULL)
         return;
 
     for (int i = 0; i < lim; i++){
@@ -59,7 +59,7 @@ void finding_duplicate_one(int k, int l, int** mas, int *len){
     int pred = 2 << (l - 1) - 1;
     int size = lim - pred;
     *mas = (int*)malloc(size * sizeof(int));
-    if (!*mas)
+    if (*mas == NULL)
         return;
 
     for (int i = pred; i < lim; i++){
