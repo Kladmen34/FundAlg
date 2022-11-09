@@ -44,8 +44,7 @@ char* to_base(int n, int r){
     while (n != 0){
         rem = n & base;
         if (rem > 9){
-            for (int j = 0; j < 9; j++)
-                rem = subtraction(rem, 1);
+            rem = subtraction(rem, 9);
             res[i] = 64 | rem;
         }
         else
