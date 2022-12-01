@@ -25,7 +25,7 @@ char toChar(int num) {
     return num - 10 + 'A';
 }
 
-short isCorrect(int base, char *string) {
+int isCorrect(int base, char *string) {
     int x = 0;
     while (string[x] != '\0') {
         if (!(isdigit(string[x]) || ('A' <= string[x] && string[x] <= 'Z')))
@@ -72,7 +72,7 @@ char *shiftLeft(char *num) {
     return cNum;
 }
 
-short add(char *res, int base, char *num) {
+int add(char *res, int base, char *num) {
     char *cNum = shiftLeft(num);
     if (cNum == NULL) {
         return 0;
