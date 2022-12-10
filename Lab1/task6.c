@@ -3,6 +3,8 @@
 #include<stdlib.h>
 
 int detect_system(char *x){
+    if (strlen(x) == 0)
+        return -1;
 	int k, max = 0;
   	for(int i = 0; x[i]; i++){
     		char d =  x[i];
@@ -14,6 +16,8 @@ int detect_system(char *x){
 }
 
 int convert_to_dec(char *x, int base){
+    if (strlen(x) == 0)
+        return -1;
 	int n = 0, k;
     	for(int i = 0; x[i]; i++){
       		char d = x[i];
@@ -43,8 +47,17 @@ int main(){
   	while (!feof(f_in)){
     		fscanf(f_in, "%s", str);
     		base = detect_system(str);
-    		n = convert_to_dec(str, base);
-    		fprintf(f_out, "%s %d %d\n", str, base, n);
+    		if (base == -1){
+                printf("The string is empty!");
+    		}
+    		else{
+                n = convert_to_dec(str, base);
+                if (n == -1){
+                    printf("The string is empty!");
+                }
+                else
+                    fprintf(f_out, "%s %d %d\n", str, base, n);
+    		}
   	}
   	fclose(f_in);
   	fclose(f_out);
