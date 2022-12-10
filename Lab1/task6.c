@@ -48,16 +48,17 @@ int main(){
     		fscanf(f_in, "%s", str);
     		base = detect_system(str);
     		if (base == -1){
-                printf("The string is empty!");
+                	printf("The string is empty!");
     		}
     		else{
-                n = convert_to_dec(str, base);
-                if (n == -1){
-                    printf("The string is empty!");
-                }
-                else
-                    fprintf(f_out, "%s %d %d\n", str, base, n);
-    		}
+                	n = convert_to_dec(str, base);
+                	if (n == -1){
+                    		printf("The string is empty!");
+                	}
+                	else{
+                    		fprintf(f_out, "%s %d %d\n", str, base, n);
+    			}
+		}
   	}
   	fclose(f_in);
   	fclose(f_out);
