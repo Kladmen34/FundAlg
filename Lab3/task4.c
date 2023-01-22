@@ -174,7 +174,7 @@ int from_file_to_msg(FILE* filename, message*** mess, int size) {
     return DONE;
 }
 
-int prinr_messages(message*** mess, int len) {
+int print_messages(message*** mess, int len) {
     for (int i = 0; i < len; i++) {
         printf("id: %d, message: %s\n", (*mess)[i]->id, (*mess)[i]->str);
     }
@@ -228,7 +228,7 @@ int main(int argc, char* argv[]) {
         if (code == DONE) {
             printf("\nTyped messages\n");
             fclose(file);
-            prinr_messages(&post, ids);
+            print_messages(&post, ids);
             free_messages(&post, ids);
         }
         else {
