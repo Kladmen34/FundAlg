@@ -1,86 +1,74 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 
-enum {
-    FILE_NOT_FOUND = -1,
-    SUBSTR_FOUND = -2,
-    SUBSTR_NOT_FOUND = -3,
-    MEMORY_ERROR = -4,
-    SUCCESSFULLY = -5
-};
-
-int find_str(char *str, char *substr) {
-    int i, j, str_len, substr_len;
-	str_len = strlen(str);
-	substr_len = strlen(substr);
-	int *prefix = (int*)malloc(substr_len * sizeof(int));
-    if (!prefix){
-        free(*prefix);
-        return MEMORY_ERROR;
-    }
-
-	prefix[0] = 0;
-	for(i = 1, j = 0; i < substr_len; i++) {
-		while(j > 0 && substr[j] != substr[i])
-			j = prefix[j-1];
-		if(substr[j] == substr[i])
-			j++;
-		prefix[i] = j;
-	}
-
-
-	for(i = 0, j = 0; i < str_len; i++){
-		while(j > 0 && substr[j] != str[i])
-			j = prefix[j - 1];
-		if(substr[j] == str[i]) {
-            j++;
-        }
-		if(j == substr_len) {
-		    free(prefix);
-            return SUBSTR_FOUND;
-        }
-	}
-    free(prefix);
-	return SUBSTR_NOT_FOUND;
-}
-
-
-int check_files(char *substr, int num_of_files, ...) {
-    FILE *fin;
-    char *file_name;
-    va_list p;
-    va_start(p, num_of_files);
-    int is_found = 0, line = 1;
-    char str[BUFSIZ];
-    while(num_of_files != 0) {
-        line = 1;
-        num_of_files--;
-        file_name = va_arg(p, char*);
-        fin = fopen(file_name, "r");
-        if(!fin) {
-            return FILE_NOT_FOUND;
-        }
-        while(fgets(str, sizeof(str), fin) != NULL) {
-            is_found = find_str(str, substr);
-            if(is_found == SUBSTR_FOUND) {
-                printf("Substr %s found in file: %s, in line=%d\n", substr, file_name, line);
-            } else if(is_found == SUBSTR_NOT_FOUND) {
-                printf("Substr %s NOT found in file: %s, in line=%d\n", substr, file_name, line);
-            } else if(is_found == MEMORY_ERROR) {
-                printf("Problems with memory...\n");
-                return MEMORY_ERROR;
+int search_substring(const char* str, const char* substr) {
+    int i, j;
+    for (i = 0; str[i]; i++) {
+        for (j = 0; substr[j]; j++) {
+            if (str[i + j] != substr[j]) {
+                break;
             }
-            line++;
         }
-        fclose(fin);
+        if (!substr[j]) {
+            return i;
+        }
     }
-    va_end(p);
-    return SUCCESSFULLY;
+    return 0;
 }
 
-int main(int argc, char * argv[]) {
-    check_files("Hello", 2, "f1.txt","f2.txt");
+int* search_in_files(const char* substr, int file_count, ...) {
+    va_list files;
+    va_start(files, file_count);
+    char* buff = NULL;
+    size_t buff_size = 0;
+    int i;
+    for (i = 0; i < file_count; i++) {
+        FILE* file = va_arg(files, FILE*);
+        int line_number = 1;
+        while (getline(&buff, &buff_size, file) != -1) {
+            int sym = search_substring(buff, substr);
+            if (sym) {
+                int *result = (int*)malloc(3 * sizeof(int));
+                if (!result) {
+                    fprintf(stderr, "malloc() failed: insufficient memory!\n");
+                    return NULL;
+                }
+                result[0] = i + 1;
+                result[1] = line_number;
+                result[2] = sym;
+                return result;
+            }
+            line_number++;
+            free(buff);
+        }
+        rewind(file);
+    }
+    va_end(files);
+    free(buff);
+    return NULL;
+}
+
+int main() {
+    FILE* file1 = fopen("file1.txt", "r");
+    if((file1 = fopen("file1.txt", "r"))==NULL){
+        printf("File opening failed\n");
+        return -1;
+    }
+    FILE* file2 = fopen("file2.txt", "r");
+    if((file2 = fopen("file2.txt", "r"))==NULL){
+        printf("File opening failed\n");
+        fclose(file1);
+        return -2;
+    }
+    int *res = search_in_files("bruh", 2, file1, file2);
+    if(res){
+        printf("Substring found in file %d in line %d in position %d\n", res[0], res[1], res[2]);
+        free(res);
+    }
+    fclose(file1);
+    fclose(file2);
+    return 0;
 }
