@@ -53,12 +53,12 @@ int* search_in_files(const char* substr, int file_count, ...) {
 
 int main() {
     FILE* file1 = fopen("file1.txt", "r");
-    if((file1 = fopen("file1.txt", "r"))==NULL){
+    if(!file1){
         printf("File opening failed\n");
         return -1;
     }
     FILE* file2 = fopen("file2.txt", "r");
-    if((file2 = fopen("file2.txt", "r"))==NULL){
+    if(!file2){
         printf("File opening failed\n");
         fclose(file1);
         return -2;
