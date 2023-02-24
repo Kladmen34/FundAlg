@@ -568,35 +568,35 @@ int main(int argc, char *argv[]){
     int k = 2;
     if(argc != 2){
         printf("Wrong number of arguments\n");
-        return 0;
+        return -1;
     }
     printf("\n[ Reading file... ]\n\n");
     FILE* fin = fopen(argv[1], "r");
     if(!fin){
         printf("Could not open a file\n");
-        return 0;
+        return -2;
     }
     list* students = (list*)malloc(k * sizeof(list));
     if(!students){
         printf("Memory allocation error\n");
-        return 0;
+        return -3;
     }
     comm_error = read_file(&students, &k, fin, &counter_of_persons);
     if(comm_error == MEMORY){
         printf("Memory allocation error\n");
         free_list(students, counter_of_persons);
         fclose(fin);
-        return 0;
+        return -4;
     }else if(comm_error == SYNTAX){
         printf("Wrong syntax\n");
         free_list(students, counter_of_persons);
         fclose(fin);
-        return 0;
+        return -5;
     }else if(comm_error == COUNT) {
         printf("Wrong amount of line properties\n");
         free_list(students, counter_of_persons);
         fclose(fin);
-        return 0;
+        return -6;
     }
     fclose(fin);
     if(counter_of_persons == 0){
