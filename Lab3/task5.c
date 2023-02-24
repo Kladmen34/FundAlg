@@ -373,18 +373,6 @@ int find_course(list* students, int counter_of_persons){
     return DONE;
 }
 
-char* to_up_str(char* str){
-    int len = strlen(str);
-    int i = 0;
-    char* str_up = (char*)malloc((len+1)*sizeof(char));
-    if(!str_up) return NULL;
-    for(i; i < len; i++){
-        str_up[i] = toupper(str[i]);
-    }
-    str_up[i] = 0;
-    return str_up;
-}
-
 int compare_id(const void* x_void, const void* y_void){
     int x = (*(list*)x_void).id;
     int y = (*(list*)y_void).id;
