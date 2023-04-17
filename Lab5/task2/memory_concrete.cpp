@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "memory_concrete.h"
 #include <sstream>
-#include <cstring>
+
 
 void memory_concrete::log(std::string const& target, logger::severity level) const {
 	if (_log == nullptr)
