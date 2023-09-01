@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <cstring>
 #include "pipeline.h"
-#include "sha.h"
+#include "sha.hpp"
 #include "mq.h"
 
 std::unordered_set<size_t> optional_fields = { 7, 8, 9 }; 
@@ -24,16 +24,9 @@ bool paramInSearchable(const std::string & param) {
 }
 
 std::string hashString(const std::string & str) {
-    hash_sha256 hash;
-    hash.sha256_init();
-    hash.sha256_update((std::uint8_t*) str.data(), str.size());
-    sha256_type hash_value = hash.sha256_final();
-    std::stringstream ss;
-    for (auto b : hash_value) {
-        ss << std::hex << std::setfill('0') << std::setw(2) << (int) b;
-    }
-    std::string hashed = ss.str();
-    return hashed;
+    SHA3 sha3;
+    sha3.add(str.c_str(),str.size());
+    return sha3.getHash();
 }
 
 bool processRegister(std::string& line, PLR_MESSAGE & msg) {
