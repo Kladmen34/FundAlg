@@ -10,12 +10,10 @@
 #include <errno.h>
 #include <signal.h>
 
-#include "allocator.h"
-#include "logger.h"
 #include "rbt.h"
 #include "stringpool.h"
 #include "pipeline.h"
-#include "sha256.hpp"
+#include "sha.hpp"
 #include "mq.h"
 
 typedef std::vector<PSTR> PLR;
@@ -29,7 +27,7 @@ void ctrlc_signal_handler(int){
 const char * store_filename = "base.dat";
 const char * users_filename = "users.dat";
 const char * admin_login    = "admin";
-const char * admin_pass     = "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"; // 123
+const char * admin_pass     = "a03ab19b866fc585b5cb1812a2f63ca861e7e7643ee5d43fd7106b623725fd67"; // 123
 
 enum UserGroup {
     ugAdmin,
@@ -72,16 +70,9 @@ RBTree<PSTR, std::unordered_set<PPLR>>* byFinder[] = {
 };
 
 std::string hashString(const std::string & str) {
-    hash_sha256 hash;
-    hash.sha256_init();
-    hash.sha256_update((std::uint8_t*) str.data(), str.size());
-    sha256_type hash_value = hash.sha256_final();
-    std::stringstream ss;
-    for (auto b : hash_value) {
-        ss << std::hex << std::setfill('0') << std::setw(2) << (int) b;
-    }
-    std::string hashed = ss.str();
-    return hashed;
+    SHA3 sha3;
+    sha3.add(str.c_str(),str.size());
+    return sha3.getHash();
 }
 
 
